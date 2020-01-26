@@ -20,14 +20,16 @@ class Layout extends React.Component {
     }
 
     render() {
-        return <Aux>
-            <Toolbar openSideDrawer={this.sideDrawerToggleHandler}></Toolbar>
-            <SideDrawer open={this.state.showSideDrawer} closed={this.sideDrawerToggleHandler}></SideDrawer>
-            <div>toolbar, sidebar, backdrop</div>
-            <main className={classes.content}>
-                {this.props.children}
-            </main>
-        </Aux>
+        return (
+            <Aux>
+                <Toolbar openSideDrawer={this.sideDrawerToggleHandler}></Toolbar>
+                <SideDrawer open={this.state.showSideDrawer} closed={this.sideDrawerToggleHandler}></SideDrawer>
+                <div>toolbar, sidebar, backdrop</div>
+                <main className={classes.content}>
+                    {this.props.children}
+                </main>
+            </Aux>
+        );
     }
 }
 

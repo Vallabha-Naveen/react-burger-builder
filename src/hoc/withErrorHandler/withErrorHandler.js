@@ -19,9 +19,8 @@ const withErrorHandler = (WrappedComponent, axios) => {
         }
 
         componentWillUnmount() {
-            console.log('ooooooooo')
-            axios.interceptor.request.eject(this.reqInterceptor);
-            axios.interceptor.request.eject(this.resInterceptor);
+            axios.interceptors.request.eject(this.reqInterceptor);
+            axios.interceptors.request.eject(this.resInterceptor);
         }
 
         errorConfirmedHandler = () => {

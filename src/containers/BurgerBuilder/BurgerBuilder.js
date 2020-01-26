@@ -46,30 +46,41 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinue = (e) => {
-        e.stopPropagation();
         // alert();
-        this.setState({ loading: true })
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'nav',
-                address: {
-                    street: 'test street',
-                    zipcode: '12345',
-                    country: 'India'
-                },
-                email: 'test@test.com'
-            },
-            deliveryMethod: 'fastest'
+        // this.setState({ loading: true })
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: 'nav',
+        //         address: {
+        //             street: 'test street',
+        //             zipcode: '12345',
+        //             country: 'India'
+        //         },
+        //         email: 'test@test.com'
+        //     },
+        //     deliveryMethod: 'fastest'
+        // }
+        // axios.post('/orders.json', order).then(response => {
+        //     console.log(response);
+        //     this.setState({ loading: false, purchasing: false });
+        // }).catch(err => {
+        //     console.log(err);
+        //     this.setState({ loading: false, purchasing: false });
+        // });
+
+        // this.props.history.push(`/checkout/${this.state.ingredients.salad}/${this.state.ingredients.bacon}/${this.state.ingredients.meat}/${this.state.ingredients.cheese}`);
+        const queryParams = [];
+        for (let i in this.state.ingredients) {
+            queryParams.push(`${encodeURIComponent(i)}=${encodeURIComponent(this.state.ingredients[i])}`)
         }
-        axios.post('/orders.json', order).then(response => {
-            console.log(response);
-            this.setState({ loading: false, purchasing: false });
-        }).catch(err => {
-            console.log(err);
-            this.setState({ loading: false, purchasing: false });
-        });
+        queryParams.push('price=' + this.state.totalPrice)
+        const queryString = queryParams.join('&');
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString,
+        })
     }
 
     cancelPurchase = () => {
