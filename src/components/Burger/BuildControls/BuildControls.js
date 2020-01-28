@@ -14,7 +14,11 @@ const buildControls = props => {
         Total cost - <strong>{props.totalPrice}</strong>
         {controls.map((control, i) => {
             return <Aux key={i}>
-                <BuildControl label={control.label} isDisabled={props.ingredients[control.type]} type={control.type} modifyIngredients={props.modifyIngredients} />
+                <BuildControl
+                    label={control.label}
+                    isDisabled={props.ingredients[control.type]}
+                    type={control.type}
+                    modifyIngredients={props.modifyIngredients} />
             </Aux>
         })}
         <button className={classes.OrderButton} onClick={props.purchasing} disabled={props.purchasable}>ORDER NOW</button>
