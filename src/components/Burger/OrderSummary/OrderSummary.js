@@ -4,15 +4,15 @@ import Button from '../../UI/Button/Button';
 
 class OrderSummary extends React.Component {
     componentWillUpdate() {
-        console.log('orderSummary will update');
+        // console.log('orderSummary will update');
     }
 
     componentDidMount() {
-        console.log('orderSummary componentDidMount');
+        // console.log('orderSummary componentDidMount');
     }
 
     componentWillUnmount() {
-        console.log('orderSummary componentUnMount');
+        // console.log('orderSummary componentUnMount');
     }
     render() {
         const ingredientSummary = Object.keys(this.props.ingredients).map(igKey => {

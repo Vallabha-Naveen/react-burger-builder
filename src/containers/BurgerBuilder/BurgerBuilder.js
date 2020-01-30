@@ -8,7 +8,8 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Modal from '../../components/UI/Modal/Modal';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import axios from '../../axios-orders';
-import * as actionTypes from '../../store/actions';
+// import * as actionTypes from '../../store/actions/actionTypes';
+import * as burgerBuilderActions from '../../store/actions';
 
 
 class BurgerBuilder extends Component {
@@ -25,9 +26,15 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount() {
+
+        // ONE WAY OF FETCHING INGREDIENTS
         // axios.get('/ingredients.json').then(res => {
-        //     this.setState({ ingredients: res.data });
+        //     // this.setState({ ingredients: res.data });
+        //     this.props.onIngredientsFetched(res.data);
         // }).catch(console.log)
+
+        // OTHER WAY OF FETCHING USING ACTION MIDDLEWARES
+        this.props.onFetchIngredients();
     }
 
     handlePurchasing = () => {
@@ -70,7 +77,7 @@ class BurgerBuilder extends Component {
     }
 
     render() {
-        let burger = <Spinner />;
+        let burger = this.props.error ? <p>Ingredients can't be loaded</p> : <Spinner />;
         let orderSummary = null
         if (this.props.ings) {
             burger = <Aux>
@@ -104,15 +111,20 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
     return {
-        ings: state.ingredients,
-        price: state.totalPrice
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        error: state.burgerBuilder.error
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIngredientAdded: (ingredientName) => dispatch({ type: actionTypes.ADD_INGREDIENT, ingredientName }),
-        onIngredientRemoved: (ingredientName) => dispatch({ type: actionTypes.REMOVE_INGREDIENT, ingredientName })
+        // onIngredientAdded: (ingredientName) => dispatch({ type: actionTypes.ADD_INGREDIENT, ingredientName }),
+        // onIngredientRemoved: (ingredientName) => dispatch({ type: actionTypes.REMOVE_INGREDIENT, ingredientName })
+        onIngredientAdded: (ingredientName) => dispatch(burgerBuilderActions.addIngredient(ingredientName)),
+        onIngredientRemoved: (ingredientName) => dispatch(burgerBuilderActions.removeIngredient(ingredientName)),
+        // onIngredientsFetched: (ingredients) => dispatch(burgerBuilderActions.ingredientsFetched(ingredients))
+        onFetchIngredients: () => dispatch(burgerBuilderActions.fetchIngredients())
     }
 }
 
