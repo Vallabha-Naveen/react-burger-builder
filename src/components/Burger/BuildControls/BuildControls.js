@@ -21,7 +21,9 @@ const buildControls = props => {
                     modifyIngredients={props.modifyIngredients} />
             </Aux>
         })}
-        <button className={classes.OrderButton} onClick={props.purchasing} disabled={props.purchasable}>ORDER NOW</button>
+        <button className={classes.OrderButton} onClick={props.purchasing} disabled={props.purchasable}>{
+            props.isAuth ?
+                'ORDER NOW' : 'Sign up to order'}</button>
     </div>
 }
 

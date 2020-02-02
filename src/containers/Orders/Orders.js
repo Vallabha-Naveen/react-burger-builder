@@ -21,7 +21,7 @@ class Orders extends React.Component {
         //     this.setState({ loading: false })
         // })
 
-        this.props.initOrders();
+        this.props.initOrders(this.props.token, this.props.userId);
     }
     render() {
         return (
@@ -40,13 +40,15 @@ const mapStateToProps = state => {
     return {
         orders: state.order.orders,
         loading: state.order.loading,
-        error: state.order.error
+        error: state.order.error,
+        userId: state.auth.userId,
+        token: state.auth.token
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        initOrders: () => dispatch(actionTypes.fetchOrders())
+        initOrders: (token, userId) => dispatch(actionTypes.fetchOrders(token, userId))
     }
 }
 
